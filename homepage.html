@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <script src="js/jquery-3.2.1.min.js"></script>
+	 <link href="css/style.css" rel="stylesheet" />
+    <title>Ikinci El Satis</title>
+    <script>
+	
+var checkHome=function(){
+	var url="http://trmyrobot.com/ikinciel/homepage.html";
+	var checker=window.location.href;
+	if(url==checker){}
+	else{
+		window.location.href="login.html";
+	}
+}
+var LoadNavBar=function(){
+	var level;
+	$.ajax({
+		type:"GET",
+		dataType:"json",
+		url:"api/getlevel.php",
+		success:function(data){
+			if(data.error==false){
+				level=data.level;
+				var veri = JSON.stringify({ "level": level });
+				$.ajax({
+					type: "POST",
+					dataType: "json",
+					url: "api/getpages.php",
+					data: veri,
+					success: function (data) {
+						if(data.error==false){
+							$("#navbarlist li").remove();
+							for(var i = 0; i < data.message.length; i++){
+								$("#navbarlist").append("<li class=\"navbarlist_li\"><a class=\"navbar_call\" href=\"" + data.message[i].navlink + "\">" + data.message[i].navitem + "</a></li>");
+							}
+						}
+						else {
+							alert(data.message);
+						}
+					}
+				});
+				if(level>1){
+					$.ajax({
+						type: "POST",
+						dataType: "json",
+						url: "api/getfromsession.php",
+						success: function (data) {
+							if(data.error==false&&data.checker==true){
+								$("#navbarlist").append("<li class=\"navbarlist_li dropdown\" style=\"float:right\" id=\"infobutton\"><a class=\"active\" id=\"userinfo\" href=\"profile.html\">"+data.message+"</a><div class=\"dropdown-content\"><a id=\"cikisyap\" href=\"login.html\">Çıkış Yap</a></div></li>");
+							}
+							else if(data.error==true&&data.checker==false) {
+								alert("home check");
+							}
+							else {alert(data.message);}
+						}
+					});
+				}
+				else if(level==(-1)){
+					$.ajax({
+							type: "GET",
+							dataType: "json",
+							url: "api/loginer.php",
+							success: function (data) {
+								if(data.error==false){
+									$("#navbarlist").append("<li class=\"navbarlist_li dropdown\" style=\"float:right !important\" id=\"infobutton\"><a class=\"active\" id=\"userinfo\" href=\""+data.message+"\">"+data.name+"</a></li>");
+								}
+								else {alert(data.message);}
+							}
+						});
+				}
+				else {
+					alert("Kullanıcı ile ilgili bir sorun oluştu... Lütfen önbelleği temizleyip tekrar deneyiniz.");
+				}
+			}
+			else {
+				alert(data.message);
+			}
+		}
+	});
+};
+var ProductFiller=function(){
+	$.ajax({
+		type: "GET",
+		dataType: "json",
+		url: "api/getproducts.php",
+		success: function (data) {
+			if(data.error==false){
+				$("#products").empty();
+				if (data.message.length > 0){
+					for (var i = 0; i < data.message.length; i++){
+						$("#products").append("<div class=\"responsive\"><div class=\"gallery\"><a class=\"call_product\" href=\""+data.message[i].productid+"\"><div class=\"productgallery\"><img src=\""+
+						data.message[i].image+"\" alt=\"Resim Yüklenemedi...\" width=\"100%\" ></div><div class=\"descdiv\"><div class=\"desc\"><p class=\"deataileddiv\">"+data.message[i].name+"</p><p>"+data.message[i].price+"</p></div></div></a></div></div>");
+					}
+					$(".call_product").click(function () {
+						productid = $(this).attr("href");
+						var data = JSON.stringify({ "productid": productid});
+						$.ajax({
+							type: "POST",
+							dataType: "json",
+							url: "api/getproduct.php",
+							data: data,
+							success: function (data) {
+								if(data.error==false){
+									window.location.href=data.message;
+								}
+								else {alert(data.message);}
+							}
+						});
+						$('.call_robot').attr('style', 'background-color: white !important');
+						$(this).attr('style', 'background-color: rgba(82, 168, 236, 0.8) !important');
+						return false;
+					});
+				}
+				else{
+				alert("Gösterilecek ürün yok.!");}
+			}
+			else {alert(data.message);}
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			alert(jqXHR.status);
+			alert(textStatus);
+			alert(errorThrown);
+		}
+	});
+};
+		$(document).ready(function () {
+			LoadNavBar();
+			ProductFiller();
+			$( ".dropdown-content #cikisyap" ).on( "click", function() {
+			  cikisYapFunc();
+			});
+		}); 
+	 </script>
+	
+</head>
+<body>
+<div id="header1">
+	<div id="navbar">
+			<ul id="navbarlist">
+			
+			</ul>
+	</div>
+</div>
+<div id="mainpanel">
+     <div id="products">
+	 
+	 </div>        
+</div>
+</body>
+</html>

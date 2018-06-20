@@ -1,0 +1,481 @@
+﻿body{
+	background-color:#F6FFFF;
+	width:100%;
+	margin-left:0px;
+}
+body#bodyimg{
+	background-image:url("../img/loginpage.png");
+	  background-repeat: no-repeat;
+    background-size: 100% 1024px;
+	background-color:#DEEEFF;
+}
+
+div#header1 {
+    width: 100%;
+    height: 46px;
+	margin-bottom : 10px;
+}
+div#loginlinks{
+	width:100%;
+}
+ul#navbarlist {
+	box-sizing: border-box;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    position: fixed;
+    top: 0px;
+    width: 100vw;
+    min-width: 320px;
+    height: 56px;
+    z-index: 10;
+    padding: 8px;
+	margin:0px;
+    /*list-style-type: none;
+    margin: 0;
+    padding-left: 20%;
+    overflow: hidden;*/
+    background-color: #333;
+}
+
+li.navbarlist_li {
+	padding-left: calc(0.5rem);
+    padding-right: calc(0.5rem);
+	display : inline-block;
+    float: left;
+	background-color: #333;
+	    -webkit-box-pack: center;
+    justify-content: center;
+}
+
+    li.navbarlist_li a:not(.active){
+	/*	 top: 0px;
+			width:100%;
+			display: inline-block;
+
+			text-align: center;
+			padding: 10px 12px;
+			text-decoration: none;*/
+						color: white;
+			    display: -webkit-inline-box;
+			position: relative;
+			-webkit-box-align: center;
+			align-items: center;
+			-webkit-box-pack: center;
+			justify-content: center;
+			justify-items: center;
+			text-align: center;
+			font-size: 1em;
+			width: 150px;
+			height: 40px;
+			flex: 0 0 auto;
+			background: transparent;
+    }
+	  li.navbarlist_li a.active{
+	/*	 top: 0px;
+			width:100%;
+			display: inline-block;
+
+			text-align: center;
+			padding: 10px 12px;
+			text-decoration: none;*/
+			
+						color: white;
+			    display: -webkit-inline-box;
+			position: relative;
+			-webkit-box-align: right;
+			align-items: right;
+			-webkit-box-pack: center;
+			justify-content: center;
+			justify-items: center;
+			text-align: center;
+			font-size: 1em;
+			width: 150px;
+			height: 40px;
+			float:right;
+			right:0;
+			background: transparent;
+    }
+        li.navbarlist_li a:hover:not(.active) {
+            background-color: #111;
+			border-radius:8px;
+        }
+		 li.navbarlist_li#infobutton{
+			 clear:both !important;
+			 float:right !important;
+		 }
+#products{
+	    width: 100%;
+    height: 100%;
+}		
+
+
+div.responsive {
+/*   margin-top: 2px;
+  margin-bottom:20px;
+  padding: 0px 6px;
+    float: left;
+    width: 20%;
+    height: 300px;
+*/    flex-basis: 25%;
+    max-width: 25%;
+	position: relative;
+    box-sizing: border-box;
+    break-inside: avoid;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 4px;
+    cursor: pointer;
+    background-color: rgb(255, 255, 255);
+    display: inline-block;
+	width: 22%;
+	margin-left: 1%;
+	margin-top: 2px;	
+    border-radius: 8px;
+    padding: 4px;
+	align-items:center;
+	height:400px;}
+
+div.gallery {
+    width: 100%;
+	height:100%;
+}
+
+div.responsive:hover {
+	background-color:#DEEEFF;
+    border: 1px solid #777;
+}
+
+div.gallery img {
+   /* width: 90%;
+	margin-left:5%;
+	margin-top:3px;
+    height: auto; border: 2px solid #ccc;*/
+    position: absolute;
+    width: 90%;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+	display: block;
+    margin-left: 3%;
+    margin-right: auto;
+	 box-sizing: border-box;
+	border:0px;
+	margin-top:3px;
+	 text-align:center;
+box-radius:10px;
+}
+a.call_product{
+	width:100%;
+	height:100%;
+}
+div.productgallery{
+	width:100%;
+	height:60%;
+	margin-bottom:15%;
+}
+div.descdiv{
+	margin-bottom:0px;
+	width:100%;
+	height:25%;
+	bottom:0px;
+}
+div.desc {
+	
+    margin-top:2px;
+    padding: 15px;
+    text-align: center;
+}
+div.desc p {
+	ont-family: 'Open Sans', sans-serif;
+}
+p.deataileddiv{
+	color: rgb(33, 33, 33);
+    line-height: 1.2em;
+    font-weight: 400;
+    font-size: 16px;
+    max-width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin: 0px;
+    overflow: hidden;
+}
+
+.dropdown {
+	clear:both;
+	color:#fff;
+    position: relative;
+    display: inline-block;
+	margin-top:16px;
+	margin-right:3%;
+	float:right !important;
+}
+
+.dropdown-content {
+
+	float:right;
+    display: none;
+    position: absolute;
+	margin-top:3px;
+	margin-left:1%;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+}
+#cikisyap{
+	color:#000;
+	margin-top:12%;
+}
+#cikisyap:hover{
+	color:#fff;
+}
+#userinfo{display:block;}
+.dropdown:hover .dropdown-content{
+	top:0;
+	margin-top:3px;
+	margin-top:10px;
+    display: block;
+}
+	#indexpanel{
+		margin-left:30%;
+		margin-top:300px;
+		width:30%;
+		height:auto;
+	}
+#logpanel {
+    margin-left: 35%;
+    margin-top: 200px;
+    width: 30%;
+    height: auto;
+}
+
+#loginsubmit {
+    border: 1px;
+    height: 40px;
+    width: 60%;
+    text-align: center;
+    color: #515151;
+    font-size: 24px;
+    font-family: 'Open Sans', sans-serif;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+	margin-left:18%;
+}
+	.logintext{
+		width:90%;
+		padding: 1px 20px;
+		  border-radius: 10px;
+		  -moz-border-radius: 10px;
+		  -webkit-border-radius: 10px;
+		  height: 30px;
+
+		  margin-top:3px;
+	}
+	a{ 
+		margin-left:1%;
+		float:left;
+	  font-weight: bold;
+	  color: black;
+	  font-style: oblique;
+	  font-family: Arial, Helvetica, sans-serif;
+	  text-decoration: none;
+	  vertical-align:top;
+	  height: 30px;
+		font-size:large ;
+}
+
+#loginlinks{	height: 20px;
+		margin-bottom: 10%;
+		margin-top: 5%}
+#sifremiunuttum{
+	margin-right:2%;
+		float:right !important;
+		right:0;
+		z-index:1;
+	}
+		#registerindexpanel{
+		margin-left:25%;
+		margin-top:50px;
+		width:40%;
+		height:auto;
+	}
+.selects{
+	right:0px;
+	float:right;
+	  padding: 1px 20px;
+	  border:1px;
+  border: 1;
+  height: 30px;
+  width: 35%;
+  text-align: center;
+  color:    #515151;
+  font-size:24px;
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+    margin-left: 200px;
+    margin-top: 7px;
+}
+input.registertext{
+  padding: 1px 20px;
+  border: 1;
+  height: 30px;
+  width: 30%;
+  text-align: center;
+  color:    #515151;
+  font-size:24px;
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+    margin-left: 200px;
+    margin-top: 7px;
+	float:right;
+}
+.passtext{
+		right:0px;
+		float:right;
+	  padding: 1px 20px;
+	  border: 1px;
+	  height: 30px;
+	  width: 30%;
+	  text-align: center;
+	  color:    #515151;
+	  font-size:24px;
+	  font-family: 'Open Sans', sans-serif;
+	  border-radius: 10px;
+	  -moz-border-radius: 10px;
+	  -webkit-border-radius: 10px;
+}
+
+.labels{
+	vertical-align:center;
+  font-size: 24px;
+  font-weight: 500;
+  font-family:sans-serif;
+  color:    #515151;
+
+}
+	.satır{
+		margin-top: 7px;
+	}
+	#register_submit, #checkpass_submit{
+  padding: 1px 20px;
+  border: 1px;
+  height: 40px;
+  width: 50%;
+  text-align: center;
+  color:    #515151;
+  font-size:24px;
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+   margin-left:25%;
+    margin-top: 7px;
+}
+#forgetpassword_submit{
+	 padding: 1px 20px;
+  border: 1px;
+  height: 40px;
+  width: 50%;
+  text-align: center;
+  color:    #515151;
+  font-size:24px;
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+   margin-left:25%;
+    margin-top: 7px;
+}
+#forgetpassword_userlabel{
+	width:70%;
+	margin-left:20%;
+}
+.profile_show{
+	 padding: 1px 20px;
+  border: 1px;
+  height: 40px;
+  width: 50%;
+  text-align: center;
+  color:    #515151;
+  font-size:24px;
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+    margin-top: 7px;
+	margin-left:25%;
+}
+#indexpanelprofil{
+	margin-left:25%;
+		margin-top:10px;
+		width:50%;
+		height:auto;
+}
+.resimsatırı{
+	border:1px solid #ccc;
+	width:50%;
+	margin-left:25%;
+	height:300px;
+}
+#add_product_div{
+	margin-left:20%;
+	margin-top:10px;
+	width:60%;
+	height:500px;
+	display:block;
+	border:1px solid #ccc;
+}
+.loadimgdiv{
+	margin-top:40px;
+	float:left;
+	height:auto;
+	display:block;
+	width:50%;
+}
+
+#loadimgdiv2{
+	float:right;
+}
+#imageview{
+	border:1px solid #ccc;
+	height:270px;
+	width:80%;
+	margin-left:5%;
+}
+#product_technical{
+	height:100px;
+}
+.satır3{
+	height:	105px;
+}
+#save_product{
+	 padding: 1px 20px;
+  border: 1px;
+  height: 40px;
+  width: 60%;
+  text-align: center;
+  color:   #515151;
+  font-size:24px;
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+   margin-left:20%;
+    margin-top: 7px;
+}
+#loadimg{
+	margin-left:10%;
+	margin-top:5px;
+}
+#mainpanel{
+	margin-top:30px;
+  margin-left:10%;
+	width:80%;
+	height:auto;
+}
+
+
+

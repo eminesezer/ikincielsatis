@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/jqueryscripting.js"></script>
+     <title>Ikinci El Satis</title>
+    <script>
+        $(document).ready(function () {
+			LoadNavBar();
+			fillusers();
+        });
+    </script>
+	<link href="css/style.css" rel="stylesheet" />
+</head>
+<body>	
+	<div id="navbar">
+		<ul id="navbarlist"></ul>
+	</div>
+	<div id="indexpanel">
+		<form id="products_form"> 
+			<table id="users_table">
+				<tr>
+					<th id="user_id">Id</th>
+					<th id="user_name">Adı</th>
+					<th id="user_lastname">Soyadı</th>
+					<th id="user_username">Kullanıcı Adı</th>
+					<th id="user_email">Kullanıcı Maili</th>
+					<th id="user_product_count">Ürün Sayısı</th>
+				</tr>
+			</table>
+		</form>
+	</div>  
+    <div id="footer">
+	</div>
+</body>
+</html>
+
+

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/jqueryscripting.js"></script>
+     <title>Ikinci El Satis</title>
+    <script>
+	var cikisYapFunc=function(){
+			$.ajax({
+				type: "GET",
+				dataType: "json",
+				url: "api/cikisyap.php",
+				success: function (data) {
+					if(data.error==true){
+						alert(data.message);
+					}
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					alert(jqXHR.status);
+					alert(textStatus);
+					alert(errorThrown);
+				}
+			});
+		};
+var checkHome=function(){
+	var url="http://trmyrobot.com/ikinciel/homepage.html";
+	var checker=window.location.href;
+	if(url==checker){}
+	else{
+		window.location.href="login.html";
+	}
+}
+var LoadNavBar=function(){
+	var level;
+	$.ajax({
+		type:"GET",
+		dataType:"json",
+		url:"api/getlevel.php",
+		success:function(data){
+			if(data.error==false){
+				level=data.level;
+				var veri = JSON.stringify({ "level": level });
+				$.ajax({
+					type: "POST",
+					dataType: "json",
+					url: "api/getpages.php",
+					data: veri,
+					success: function (data) {
+						if(data.error==false){
+							
+							for(var i = 0; i < data.message.length; i++){
+								$("#navbarlist").append("<li class=\"navbarlist_li\"><a class=\"navbar_call\" href=\"" + data.message[i].navlink + "\">" + data.message[i].navitem + "</a></li>");
+							}
+						}
+						else {
+							alert(data.message);
+						}
+					}
+				});
+				if(level>0){
+					$.ajax({
+						type: "POST",
+						dataType: "json",
+						url: "api/getfromsession.php",
+						success: function (data) {
+							if(data.error==false&&data.checker==true){
+								$("#navbarlist").append("<li class=\"navbarlist_li\" style=\"float:right\"><a class=\"active\" id=\"userinfo\" href=\"profile.html\">"+data.message+"</a><div class=\"dropdown-content\"><a id=\"cikisyap\" href=\"login.html\">Çıkış Yap</a></li>");
+							}
+							else if(data.error==true&&data.checker==false) {
+								checkHome();
+							}
+							else {alert(data.message);}
+						}
+					});
+				}
+				else {
+					checkHome();
+				}
+			}
+			else {
+				alert(data.message);
+			}
+		}
+	});
+	$("#cikisyap").click(function(){
+		cikisYapFunc();
+	});
+};
+var myProducts=function(){
+	$.ajax({
+		type: "GET",
+		dataType: "json",
+		url: "api/getmyproducts.php",
+		success: function (data) {
+			if (data.error == false) {
+				$("#myproducts_table tr:not(:first)").remove();
+				if((data.message).length>0){
+					for(var i=0;i<data.message.length;i++){
+					
+						$("#myproducts_table").append("<tr><td class=\"myproduct_id\">" + data.message[i].productid +"</td><td class=\"product_img\"><img class=\"myproduct_images\" src=\""+data.message[i].image+"/></td><td class=\"myproduct_info\">" + data.message[i].name + "</td><td class=\"myproduct_price\">"+data.message[i].price+"</td></tr>");//refresh yapılabilir burada
+					}
+					$("#myproducts_table tr").click(function(){
+						var selected = $(this).hasClass("headerrow");
+							if (selected)
+								return;
+						$(".highlight").removeClass("highlight");
+						$(this).addClass("highlight");
+						$("#myproducts_table tr > *:nth-child(1)").hide();
+						productid = $(".myproduct_id", this).html();
+						var data=JSON.stringify({"id":productid});
+						$.ajax({
+							type: "GET",
+							dataType: "json",
+							url: "api/showmyproduct.php",
+							data:data,
+							success: function (data) {
+								if(data.error==false){
+									window.location.href=data.message;
+								}
+								else {
+									alert(data.message);
+								}
+							}
+						});
+					});
+				}
+			}
+			else{
+				alert(data.message);
+			}
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			alert(jqXHR.status);
+			alert(textStatus);
+			alert(errorThrown);
+		}
+	});	 
+};
+
+        $(document).ready(function () {
+			LoadNavBar();
+			myProducts();
+        });
+
+    </script>
+	<link href="css/style.css" rel="stylesheet" />
+   
+</head>
+<body>	
+	<div id="navbar">
+		<ul id="navbarlist"></ul>
+	</div>
+	<div id="indexpanel">
+		<form id="products_form"> 
+			<table id="myproducts_table">
+				<tr>
+					<th id="myproducts_id">Id</th>
+					<th id="my_products_resim">Ürün Resmi</th>
+					<th id="myproducts_table_name">Ürün Adı</th>
+					<th id="myproducts_table_info">Bilgi</th>
+					<th id="myproducts_table_note">Notlar</th>
+					<th id="myproducts_table_price">Fiyat</th>
+				</tr>
+			</table>
+		</form>
+	</div>  
+    <div id="footer">
+	</div>
+</body>
+</html>
+
+

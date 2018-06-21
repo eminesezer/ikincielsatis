@@ -1,0 +1,4 @@
+TR sözlük için kelimeler ve idler:
+
+forgetpassword_p:'Lütfen Email Adresinizi giriniz.'
+forgetpassword_submit:'Gönder'

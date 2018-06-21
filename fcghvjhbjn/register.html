@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <style>
+body{
+background-color:#eeeeef;
+}
+input.registertext{
+  padding: 1px 20px;
+  border: 1;
+  height: 30px;
+  width: 30%;
+  text-align: center;
+  color:    #515151;
+  font-size:24px;
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+    margin-left: 200px;
+    margin-top: 7px;
+}
+#register_country{
+  padding: 1px 20px;
+  border: 1;
+  height: 30px;
+  width: 35%;
+  text-align: center;
+  color:    #515151;
+  font-size:24px;
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+    margin-left: 200px;
+    margin-top: 7px;
+}
+#register_cities{
+  padding: 1px 20px;
+  border: 1;
+  height: 30px;
+  width: 35%;
+  text-align: center;
+  color:    #515151;
+  font-size:24px;
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+    margin-left: 222px;
+    margin-top: 7px;
+}
+#register_countity{
+  padding: 1px 20px;
+  border: 1;
+  height: 30px;
+  width: 35%;
+  text-align: center;
+  color:    #515151;
+  font-size:24px;
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+    margin-left: 210px;
+    margin-top: 7px;
+}
+#register_securityquestion{
+  padding: 1px 20px;
+  border: 1;
+  height: 30px;
+  width: 35%;
+  text-align: center;
+  color:    #515151;
+  font-size:24px;
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+    margin-left: 80px;
+    margin-top: 7px;
+}
+button.button{
+  padding: 1px 20px;
+  border: 1;
+  height: 40px;
+  width: 50%;
+  text-align: center;
+  color:    #515151;
+  font-size:24px;
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+    margin-left: 150px;
+    margin-top: 7px;
+}
+#register_postcode{
+  margin-left: 160px;
+}
+label{
+  font-size: 22px;
+font-weight: 500;
+  font-family:sans-serif;
+  color:    #515151;
+}
+  </style>
+    <meta charset="utf-8" />
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <title>Ikinci El Satis</title>
+    <script>
+		var checker, formlab=0, address, country, city, countity, name, lastname, username, phone, birthday, password, pass2, email, adddress, postcode, question, answer, pass;
+		var fillcountity=function(){
+			var data =JSON.stringify({"Country":country, "City":city});
+				$.ajax({
+					type: "POST",
+					dataType: "json",
+					url: "api/getcountity.php",
+					data: data,
+					success: function (data) {
+						if(!data.error){
+							$("#register_countity option").remove();
+							if (data.message.length > 0){
+								for (var i = 0; i < data.message.length; i++){
+									if(i==0){
+										$("#register_countity").append("<option selected>"+data.message[i]+"</option>");
+										countity=data.message[i];}
+									else {
+									$("#register_countity").append("<option>"+data.message[i]+"</option>");}
+								}
+								$("#register_countity").change(function(){
+									$("#register_countity option:selected").each(function(){
+										countity=$(this).text();
+									});
+								});
+							}
+							else {
+								$("#register_countity").append("<option>Herhangi Bir Seçenek Bulunamadı...</option>");
+							}
+						}
+						else{
+							alert(data.message);
+						}
+					},
+					error: function (jqXHR, exception) {
+						var msg = '';
+						if (jqXHR.status === 0) {
+							msg = 'Not connect.\n Verify Network.';
+						} else if (jqXHR.status == 404) {
+							msg = 'Requested page not found. [404]';
+						} else if (jqXHR.status == 500) {
+							msg = 'Internal Server Error [500].';
+						} else if (exception === 'parsererror') {
+							msg = 'Requested JSON parse failed.';
+						} else if (exception === 'timeout') {
+							msg = 'Time out error.';
+						} else if (exception === 'abort') {
+							msg = 'Ajax request aborted.';
+						} else {
+							msg = 'Uncaught Error.\n' + jqXHR.responseText;
+						}
+						alert(msg);
+					}
+				});
+			};
+		var fillcity=function(){
+			var data =JSON.stringify({"Country":country});
+			$.ajax({
+				type: "POST",
+				dataType: "json",
+				url: "api/getcity.php",
+				data: data,
+				success: function (data) {
+					countity="";
+					if(!data.error){
+						$("#register_cities option").remove();
+						if (data.message.length > 0){
+							for (var i = 0; i < data.message.length; i++){
+								if(i==0){
+									$("#register_cities").append("<option selected>"+data.message[i]+"</option>");
+									city=data.message[i];
+								}
+								else {
+								$("#register_cities").append("<option>"+data.message[i]+"</option>");}
+							}
+							if(data.message.length==1){fillcountity();}
+							$("#register_cities").change(function(){
+								$("#register_cities option:selected").each(function(){
+									city=$(this).text();
+									fillcountity();
+								});
+							});
+						}
+						else {
+							$("#register_cities").append("<option>Herhangi Bir Seçenek Bulunamadı...</option>");
+						}
+					}
+					else{
+						alert(data.message);
+					}
+
+				}
+			});
+		};
+		var fillcountry=function(){
+				var data=JSON.stringify({"Country":1});
+				$.ajax({
+					type: "POST",
+					dataType: "json",
+					url: "api/getcountry.php",
+					data: data,
+					success: function (data) {
+						city="";
+						countity="";
+						if(!data.error){
+							$("#register_country option").remove();
+							if (data.message.length > 0){
+								for (var i = 0; i < data.message.length; i++){
+									if(i==0){
+										$("#register_country").append("<option selected>"+data.message[i]+"</option>");
+										country=data.message[i];
+									}
+									else {
+										$("#register_country").append("<option>"+data.message[i]+"</option>");
+									}
+								}
+								$("#register_cities option").remove();
+								$("#register_cities").append("<option disabled=\"disabled\" SELECTED>Lütfen Bir Ülke Seçin</option>");
+								$("#register_countity option").remove();
+								$("#register_countity").append("<option disabled=\"disabled\" SELECTED>Lütfen Bir Ülke Seçin</option>");
+								if(data.message.length==1){fillcity();}
+								$("#register_country").change(function(){
+									$("#register_country option:selected").each(function(){
+										country=$(this).text();
+										$("#register_countity option").remove();
+										$("#register_cities option").remove();
+										fillcity();
+									});
+								});
+							}
+						}
+						else{
+							alert(data.message);
+						}
+					},
+					error: function (jqXHR, exception) {
+						var msg = '';
+						if (jqXHR.status === 0) {
+							msg = 'Not connect.\n Verify Network.';
+						} else if (jqXHR.status == 404) {
+							msg = 'Requested page not found. [404]';
+						} else if (jqXHR.status == 500) {
+							msg = 'Internal Server Error [500].';
+						} else if (exception === 'parsererror') {
+							msg = 'Requested JSON parse failed.';
+						} else if (exception === 'timeout') {
+							msg = 'Time out error.';
+						} else if (exception === 'abort') {
+							msg = 'Ajax request aborted.';
+						} else {
+							msg = 'Uncaught Error.\n' + jqXHR.responseText;
+						}
+						alert(msg);
+					}
+				});
+			};
+		var questionfiller=function(){
+			question="";
+			var data=JSON.stringify({"reason":"send"});
+				$.ajax({
+					type: "POST",
+					dataType: "json",
+					url: "api/getquestion.php",
+					data: data,
+					success: function (data) {
+						if(!data.error){
+							$("#register_securityquestion option").remove();
+							if (data.message.length > 0){
+								for (var i = 0; i < data.message.length; i++){
+									$("#register_securityquestion").append("<option>"+data.message[i]+"</option>");
+								}
+							}
+						}
+						else {
+							alert(data.message);
+						}
+					}
+				});
+		};
+		var formfiller=function(){
+			var date = new Date($("#register_birthday").val());
+			name=$("#register_name").val();
+			lastname=$("#register_lastname").val();
+			phone=$("#register_phone").val();
+			email=$("#register_email").val();
+			address=$("#register_address").val();
+			postcode=$("#register_postcode").val();
+			answer=$("#register_secureanswer").val();
+			if(isNaN(date)){
+				alert("Doğum Tarihi Boş Olmamalı...");
+			}
+			else if(pass!=password){
+				alert("Şifreler eşleşmiyor...");
+			}
+			else if(question==""||question=="Bir soru seçiniz"){
+				alert("Lütfen bir soru seçiniz...");
+			}
+			else if(name==""||lastname==""||phone==""||email==""||address==""||postcode==""||answer==""){
+				alert("Lütfen boş alan bırakmayınız...");
+			}
+			else if(checker!=1){
+				alert("Bu kullanıcı adı kullanımda...");
+			}
+			else {
+				day = date.getDate();
+				month = date.getMonth() + 1;
+				year = date.getFullYear();
+				birthday=[day, month, year].join('.');
+				formlab=1;
+			}
+		};
+		$(document).ready(function () {
+			fillcountry();
+			questionfiller();
+			$("#register_submit").click(function () {
+				formfiller();
+				if(formlab==0||checker!=1){
+				alert("Lütfen boş alanları veya kullanıcı adınızı kontrol ediniz...");}
+				else {
+				var data = JSON.stringify({"username":username, "checker":checker, "name":name,"lastname":lastname, "phone":phone, "email":email, "address":address, "postcode":postcode, "answer":answer, "question":question, "birthday":birthday, "formuls":formlab, "country":country, "city":city, "countity":countity,"pass1":password, "pass2":pass});
+				$.ajax({
+					type: "POST",
+					dataType: "json",
+					url: "api/getregistered.php",
+					data: data,
+					success: function (data) {
+						if(data.error==false){
+							window.location.href=data.message;
+						}
+						else {
+							alert(data.message);
+						}
+					},
+					error: function (jqXHR, exception) {
+						var msg = '';
+						if (jqXHR.status === 0) {
+							msg = 'Not connect.\n Verify Network.';
+						} else if (jqXHR.status == 404) {
+							msg = 'Requested page not found. [404]';
+						} else if (jqXHR.status == 500) {
+							msg = 'Internal Server Error [500].';
+						} else if (exception === 'parsererror') {
+							msg = 'Requested JSON parse failed.';
+						} else if (exception === 'timeout') {
+							msg = 'Time out error.';
+						} else if (exception === 'abort') {
+							msg = 'Ajax request aborted.';
+						} else {
+							msg = 'Uncaught Error.\n' + jqXHR.responseText;
+						}
+						alert(msg);
+					}
+				});
+				}
+			});
+			$("#register_username").change(function(){
+				username=$("#register_username").val();
+				var data=JSON.stringify({"username":username});
+				$.ajax({
+					type: "POST",
+					dataType: "json",
+					url: "api/usernamechecker.php",
+					data: data,
+					success: function (data) {
+						if(!data.error){checker=1;}
+						else {
+							alert(data.message);
+						}
+					}
+				});
+			});
+			$("#register_retakepassword").change(function(){
+				password=$("#register_password").val();
+				pass=$("#register_retakepassword").val();
+				if(pass!=password){
+					alert("Şifreler eşleşmiyor...");
+				}
+			});
+			$("#register_securityquestion").change(function(){
+				$("#register_securityquestion option:selected").each(function(){
+					question=$(this).text();
+				});
+			});
+		});
+</script>
+</head>
+<body>
+	<div id="indexpanel">
+		<form id="">
+			<div>
+				<label id="register_userlabel" for="register_name">Lütfen Aşağıdaki Formu Eksiksiz Doldurunuz.</label><br/>
+				<label id="register_namelabel" for="register_name">İsim:</label><input type="text" class="registertext" id="register_name" placeholder="" required /><br/>
+				<label id="register_lastnamelabel" for="register_lastname">Soyisim:</label><input type="text" class="registertext" id="register_lastname" placeholder="" required  /><br/>
+				<label id="register_usernamelabel" for="register_username">Kullanıcı Adı:</label><input type="text" class="registertext" id="register_username" placeholder="" required  /><br/>
+				<label id="register_phonelabel" for="register_phone">Telefon:</label><input type="text" class="registertext" id="register_phone" placeholder="" /><br/>
+				<label id="register_birthdaylabel" for="register_birthday">Doğum Tarihi:</label><input type="date" class="registertext" id="register_birthday" placeholder="" required /><br/>
+				<label id="register_passwordlabel" for="register_password">Şifre:</label><input type="text" class="registertext" id="register_password" placeholder="" required /><br/>
+				<label id="register_retakepasswordlabel" for="register_retakepassword">Şifre Tekrarı:</label><input type="text" class="registertext" id="register_retakepassword" placeholder="" required /><br/>
+				<label id="register_emaillabel" for="register_email">Email:</label><input type="email" class="registertext" id="register_email" placeholder="" required /><br/>
+				<label id="register_addresslabel" for="register_address">Adres:</label><input type="text" class="registertext" id="register_address" placeholder="" /><br/>
+				<label id="register_countrylabel" for="register_country">Ülke:</label>
+				<select id="register_country">
+					<option class="register_hiddenoption" value="" hidden><span class="register_hiddenoption_text"></span></option>
+				</select>
+				<br/>
+				<label id="register_citieslabel" for="register_cities">İl:</label>
+				<select id="register_cities">
+					<option class="register_hiddenoption" value="" hidden><span class="register_hiddenoption_text"></span></option>
+				</select>
+				<br/>
+				<label id="register_countitylabel" for="register_countity">İlçe:</label>
+				<select id="register_countity">
+					<option class="register_hiddenoption" value="" hidden><span class="register_hiddenoption_text"></span></option>
+				</select>
+				<br/>
+				<label id="register_postcodelabel" for="register_postcode">Posta Kodu:</label><input type="text" class="registertext" id="register_postcode" placeholder="" /><br/>
+				<label id="register_securityquestionlabel" for="register_securityquestion">Güvenlik Sorusu Seçiniz:</label>
+				<select id="register_securityquestion" >
+					<option class="register_hiddenoption" value="Select a Question" hidden><span class="register_hiddenoption_text"></span></option>
+				</select>
+				<br/>
+				<label id="register_secureanswerlabel" for="register_secureanswer">Cevap:</label><input type="text" class="registertext" id="register_secureanswer" placeholder="" required />
+			</div>
+			<button type="button" class="button" id="register_submit"><span id="register_submit_span">Kayıt Ol</span></button>
+		</form>
+	</div>
+    <div id="footer">
+	</div>
+</body>
+</html>

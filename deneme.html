@@ -1,0 +1,35 @@
+ <!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <title>Ikinci El Satis</title>
+    <script>
+	$(document).ready(function () {
+	alert(window.location.href);
+	$("#register_username").change(function(){
+						alert("username"+$("#register_username").val());
+					});
+	$("#register_submit").click(function(){
+	
+	
+		var date = new Date($("#register_birthday").val());
+	
+	day = date.getDate();
+  month = date.getMonth() + 1;
+  year = date.getFullYear();
+  if(isNaN(date)){
+alert("boş");
+}
+  alert([day, month, year].join('.'));
+	});});
+	</script>
+	</head>
+<body>
+	<label id="register_birthdaylabel" for="register_birthday">Doğum Tarihi:</label><input type="date" class="registertext" id="register_birthday" placeholder="" /><br/>
+	<label id="register_usernamelabel" for="register_username">Kullanıcı Adı:</label><input type="text" class="registertext" id="register_username" placeholder="" required  /><br/>
+				
+	<button type="button" class="button" id="register_submit" value="Tıkla"/>
+</body>
+</html>

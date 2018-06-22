@@ -99,8 +99,9 @@ var myProducts=function(){
 				if((data.message).length>0){
 					for(var i=0;i<data.message.length;i++){
 					
-						$("#myproducts_table").append("<tr><td class=\"myproduct_id\">" + data.message[i].productid +"</td><td class=\"product_img\"><img class=\"myproduct_images\" src=\""+data.message[i].image+"/></td><td class=\"myproduct_info\">" + data.message[i].name + "</td><td class=\"myproduct_price\">"+data.message[i].price+"</td></tr>");//refresh yapılabilir burada
+						$("#myproducts_table").append("<tr><td class=\"myproduct_id\">" + data.message[i].productid +"</td><td class=\"product_img\"><img class=\"myproduct_images\" src=\""+data.message[i].image+"\" alt=\"Resme Erişilemiyor...\"/></td><td class=\"myproduct_name\">" + data.message[i].name + "</td><td class=\"myproduct_info\"> </td><td class=\"myproduct_notes\"> </td><td class=\"myproduct_price\">"+data.message[i].price+"</td></tr>");//refresh yapılabilir burada
 					}
+						$("#myproducts_table tr > *:nth-child(1)").hide();
 					$("#myproducts_table tr").click(function(){
 						var selected = $(this).hasClass("headerrow");
 							if (selected)
@@ -152,7 +153,7 @@ var myProducts=function(){
 	<div id="navbar">
 		<ul id="navbarlist"></ul>
 	</div>
-	<div id="indexpanel">
+	<div id="myproductsindexpanel">
 		<form id="products_form"> 
 			<table id="myproducts_table">
 				<tr>

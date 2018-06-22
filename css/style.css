@@ -1,4 +1,4 @@
-﻿body{
+body{
 	background-color:#F6FFFF;
 	width:100%;
 	margin-left:0px;
@@ -476,6 +476,37 @@ input.registertext{
 	width:80%;
 	height:auto;
 }
+#myproductsindexpanel{
+		margin-left:15%;
+		margin-top:100px;
+		width:70%;
+		height:auto;
+}
 
 
+table#myproducts_table{
+    display: block;  
+    margin: 5px;
+    padding: 0px;
+    width: 100%;
+    height: 600px;
+    overflow: auto;
+}
+
+    table#myproducts_table th,td{
+        padding: 8px;
+        text-align: center;
+		width:18%;
+		height:50px;
+        border-bottom: 1px solid #ddd;
+    }
+	.myproduct_images{
+		width:20%;
+		height:auto;
+	}
+
+    table#myproducts_table tr:hover{
+        background-color: #555;
+        cursor:pointer;
+    }
 

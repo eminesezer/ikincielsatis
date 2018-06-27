@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/jqueryscripting.js"></script>
+    <title>Ikinci El Satis</title>
+    <script>
+        $(document).ready(function () {
+			LoadNavBar();
+			$.ajax({
+					url: 'api/getproduct.php',
+					type: "POST",
+					dataType:'json',
+					data: data,
+					success: function(response){
+						if(response.error == false){
+							alert(response.message);
+							window.location.href=response.links;
+						}
+						else{
+							alert(response.message);
+						}
+					},
+					error: function (jqXHR, exception) {
+						var msg = '';
+						if (jqXHR.status === 0) {
+							msg = 'Not connect.\n Verify Network.';
+						} else if (jqXHR.status == 404) {
+							msg = 'Requested page not found. [404]';
+						} else if (jqXHR.status == 500) {
+							msg = 'Internal Server Error [500].';
+						} else if (exception === 'parsererror') {
+							msg = 'Requested JSON parse failed.';
+						} else if (exception === 'timeout') {
+							msg = 'Time out error.';
+						} else if (exception === 'abort') {
+							msg = 'Ajax request aborted.';
+						} else {
+							msg = 'Uncaught Error.\n' + jqXHR.responseText;
+						}
+						alert(msg);
+					}
+				});
+			});
+    </script>
+	 <link href="css/style.css" rel="stylesheet" />
+</head>
+<body>
+	<div id="navbar">
+		<ul id="navbarlist"></ul>
+	</div>
+    <div id="add_product_div">
+		<div class="loadimgdiv" id="loadimgdiv">
+			<img src="img/noimage.jpg" id="imageview"/><br/>
+			<input type="file" id="loadimg" value="Resim Yükle"  accept=".jpg, .jpeg, .png"/>
+		</div>
+		<div class="loadimgdiv" id="loadimgdiv2">
+		<div class="satır"><label id="register_namelabel" class="labels" for="product_name">Ürün İsmi:</label><input type="text" class="registertext" id="product_name" placeholder="" required /></div><br/>
+		<div class="satır3"><label id="register_lastnamelabel" class="labels" for="product_technical">Teknik Özellikleri:</label><input type="text" class="registertext" id="product_technical" placeholder="" required  /></div><br/>
+		<div class="satır"><label id="register_usernamelabel" class="labels" for="product_price">Fiyatı:</label><input type="text" class="registertext" id="product_price" placeholder="" required  /></div><br/>
+		<div class="satır"><input type="button" id="save_product" value="Ürünü Kaydet" class="button"/></div>
+	
+	</div>
+	</div>
+	<div id="footer">
+	</div>
+</body>
+</html>

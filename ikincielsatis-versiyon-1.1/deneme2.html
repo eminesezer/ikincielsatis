@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <title>Ikinci El Satis</title>
+    <script>
+	var country, city, countity;
+$(document).ready(function () {
+			fillcountry();
+			$("#button1").click(function(){
+				fillcountry();
+			});
+		});
+    </script>
+</head>
+<body>
+<label id="register_countrylabel" for="register_country">Ülke:</label>
+				<select id="register_country">
+					<option class="register_hiddenoption" value="" hidden><span class="register_hiddenoption_text"></span></option>
+				</select>
+				<br/>
+				<label id="register_citieslabel" for="register_cities">İl:</label>
+				<select id="register_cities">
+					<option class="register_hiddenoption" value="" hidden><span class="register_hiddenoption_text"></span></option>
+				</select>
+				<br/>
+				<label id="register_countitylabel" for="register_countity">İlçe:</label>
+				<select id="register_countity">
+					<option class="register_hiddenoption" value="" hidden><span class="register_hiddenoption_text"></span></option>
+				</select>
+				<br/>
+				<label id="register_postcodelabel" for="register_postcode">Posta Kodu:</label><input type="text" class="registertext" id="register_postcode" placeholder="" /><br/>
+				<label id="register_securityquestionlabel" for="register_securityquestion">Güvenlik Sorusu Seçiniz:</label>
+				<select id="register_securityquestion" >
+					<option class="register_hiddenoption" value="" hidden><span class="register_hiddenoption_text"></span></option>
+				</select>
+<input type="button" id="button1" value="click me!"/>
+</body>
+</html>
+
+

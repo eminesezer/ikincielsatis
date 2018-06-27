@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/jqueryscripting.js"></script>
+    <link href="css/style.css" rel="stylesheet" />
+	<title>Ikinci El Satis</title>
+    <script>
+		var checker, formlab=0, address, country, city, countity, name, lastname, username, phone, birthday, password, pass2, email, adddress, postcode, question, answer, pass;	
+		$(document).ready(function () {
+			fillcountry();
+			questionfiller();
+			$("#register_submit").click(function () {
+				formfiller();
+				if(formlab==0||checker!=1){
+					alert("Lütfen boş alanları veya kullanıcı adınızı kontrol ediniz...");}
+				else {
+				var data = JSON.stringify({"username":username, "checker":checker, "name":name,"lastname":lastname, "phone":phone, "email":email, "address":address, "postcode":postcode, "answer":answer, "question":question, "birthday":birthday, "formuls":formlab, "country":country, "city":city, "countity":countity,"pass1":password, "pass2":pass, "question":question, "answer":$("#register_secureanswer").val()});
+				$.ajax({
+					type: "POST",
+					dataType: "json",
+					url: "api/getregistered.php",
+					data: data,
+					success: function (data) {
+						if(data.error==false){
+							alert("Başarıyla kayıt gerçekleştirilmiştir.");
+							window.location.href=data.message;
+						}
+						else {
+							alert(data.message);
+						}
+					},
+					error: function (jqXHR, exception) {
+						var msg = '';
+						if (jqXHR.status === 0) {
+							msg = 'Not connect.\n Verify Network.';
+						} else if (jqXHR.status == 404) {
+							msg = 'Requested page not found. [404]';
+						} else if (jqXHR.status == 500) {
+							msg = 'Internal Server Error [500].';
+						} else if (exception === 'parsererror') {
+							msg = 'Requested JSON parse failed.';
+						} else if (exception === 'timeout') {
+							msg = 'Time out error.';
+						} else if (exception === 'abort') {
+							msg = 'Ajax request aborted.';
+						} else {
+							msg = 'Uncaught Error.\n' + jqXHR.responseText;
+						}
+						alert(msg);
+					}
+				});
+				}
+			});
+			$("#register_username").change(function(){
+				username=$("#register_username").val();
+				alert(username);
+				var data=JSON.stringify({"username":username});
+				$.ajax({
+					type: "POST",
+					dataType: "json",
+					url: "api/usernamechecker.php",
+					data: data,
+					success: function (data) {
+						if(data.error==false){checker=1;}
+						else {
+							alert(data.message);
+						}
+					}
+				});
+			});
+			$("#register_retakepassword").change(function(){
+				password=$("#register_password").val();	
+				pass=$("#register_retakepassword").val();
+				if(pass!=password){
+					alert("Şifreler eşleşmiyor...");
+				}
+			});
+			$("#register_securityquestion").change(function(){
+				$("#register_securityquestion option:selected").each(function(){
+					question=$(this).text();
+				});
+			});			
+		});
+		
+</script>
+</head>
+<body>
+	<div id="registerindexpanel">
+		<form id=""> 
+			<div>
+				<div class="satır"><label id="register_userlabel" class="labels" for="register_name">Lütfen Aşağıdaki Formu Eksiksiz Doldurunuz.</label><br/>
+				<div class="satır"><label id="register_namelabel" class="labels" for="register_name">İsim:</label><input type="text" class="registertext" id="register_name" placeholder="" required /></div><br/>
+				<div class="satır"><label id="register_lastnamelabel" class="labels" for="register_lastname">Soyisim:</label><input type="text" class="registertext" id="register_lastname" placeholder="" required  /></div><br/>
+				<div class="satır"><label id="register_usernamelabel" class="labels" for="register_username">Kullanıcı Adı:</label><input type="text" class="registertext" id="register_username" placeholder="" required  /></div><br/>
+				<div class="satır"><label id="register_phonelabel" class="labels" for="register_phone">Telefon:</label><input type="text" class="registertext" id="register_phone" placeholder="" /></div><br/>
+				<div class="satır"><label id="register_birthdaylabel" class="labels" for="register_birthday">Doğum Tarihi:</label><input type="date" class="registertext" id="register_birthday" placeholder="" required /></div><br/>
+				<div class="satır"><label id="register_passwordlabel" class="labels" for="register_password">Şifre:</label><input type="text" class="registertext" id="register_password" placeholder="" required /></div><br/>
+				<div class="satır"><label id="register_retakepasswordlabel" class="labels" for="register_retakepassword">Şifre Tekrarı:</label><input type="text" class="registertext" id="register_retakepassword" placeholder="" required /></div><br/>
+				<div class="satır"><label id="register_emaillabel" class="labels" for="register_email">Email:</label><input type="email" class="registertext" id="register_email" placeholder="" required /></div><br/>
+				<div class="satır"><label id="register_addresslabel" class="labels" for="register_address">Adres:</label><input type="text" class="registertext" id="register_address" placeholder="" /></div><br/>
+			<div class="satır">	<label id="register_countrylabel" class="labels" for="register_country">Ülke:</label>
+				<select id="register_country" class="selects">
+					<option class="register_hiddenoption" value="" hidden><span class="register_hiddenoption_text"></span></option>
+				</select></div>
+				<br/>
+				<div class="satır"><label id="register_citieslabel" class="labels" for="register_cities">İl:</label>
+				<select id="register_cities" class="selects">
+					<option class="register_hiddenoption" value="" hidden><span class="register_hiddenoption_text"></span></option>
+				</select></div>
+				<br/>
+				<div class="satır"><label id="register_countitylabel" class="labels" for="register_countity">İlçe:</label>
+				<select id="register_countity" class="selects">
+					<option class="register_hiddenoption" value="" hidden><span class="register_hiddenoption_text"></span></option>
+				</select></div>
+				<br/>
+				<div class="satır"><label id="register_postcodelabel" class="labels" for="register_postcode">Posta Kodu:</label><input type="text" class="registertext" id="register_postcode" placeholder="" /></div><br/>
+				<div class="satır"><label id="register_securityquestionlabel" class="labels" for="register_securityquestion">Güvenlik Sorusu Seçiniz:</label>
+				<select id="register_securityquestion" class="selects">
+					<option class="register_hiddenoption" value="Select a Question" hidden><span class="register_hiddenoption_text"></span></option>
+				</select></div>
+				<br/>
+				<div class="satır"><label id="register_secureanswerlabel" class="labels" for="register_secureanswer">Cevap:</label><input type="text" class="registertext" id="register_secureanswer" placeholder="" required /></div>
+			</div>
+			<div class="satır"><button type="button" class="button" id="register_submit"><span id="register_submit_span">Kayıt Ol</span></button>
+		</div>
+		</form>
+	</div>  
+    <div id="footer">
+	</div>
+</body>
+</html>
+
+

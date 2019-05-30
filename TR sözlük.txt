@@ -1,0 +1,9 @@
+TR sözlük için kelimeler ve idler:
+
+forgetpassword_userlabel:'Lütfen Email Adresinizi giriniz.'
+forgetpassword_submit:'Gönder'
+forgetpassword_username->placeholder:"Kullanıcı Adı" 
+myproducts_table_name:'Ürünün Adı'
+myproducts_table_info:'Bilgi'
+myproducts_table_note:'kullanıcı notları'
+myproducts_table_price:'Fiyatı'

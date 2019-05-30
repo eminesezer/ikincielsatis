@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/jqueryscripting.js"></script>
+    <link href="css/style.css" rel="stylesheet" />
+	<title>Ikinci El Satis</title>
+    <script>
+        $(document).ready(function () {
+			LoadNavBar();
+			$( ".dropdown-content #cikisyap" ).on( "click", function() {
+			  cikisYapFunc();
+			});
+			var data, id, name;
+			$("#page_order").change(function(){
+				$("#page_order option:selected").each(function(){
+					id=$(this).text();	
+				});
+			});
+			$("#add_page").click(function () {
+				 name=$("#page_name").val();
+				 linkofpage=$("#page_link").val();
+				data=JSON.stringify({"orderid":id, "pagename":name, "pagelink":linkofpage});
+				$.ajax({														
+					type: "POST",
+					dataType: "json",
+					url: "api/savepage.php",
+					data:data,
+					success: function (data) {
+						alert(data.message);
+					}
+				});
+            });
+        });
+
+    </script>
+</head>
+<body>
+	<div id="navbar">
+		<ul id="navbarlist"></ul>
+	</div>
+	<div id="indexpaneladdpage">
+		<form id=""> 
+			<div>
+				<label id="register_userlabel" for="page_name">Lütfen Aşağıdaki Formu Eksiksiz Doldurunuz.</label><br/>
+				<label id="register_namelabel" for="page_name">Sayfa İsmi:</label><input type="text" class="registertext" id="page_name" placeholder="" /><br/>
+				<label id="register_namelabel" for="page_link">Linki:</label><input type="text" class="registertext" id="page_link" placeholder="" /><br/>
+				<label id="register_citieslabel" for="page_order">Yetki:</label>
+				<select id="page_order">
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+				</select>
+				<br/>
+				
+			<input type="button" class="button" id="add_page" Value="Sayfa Ekle"/></div>
+		</form>
+	</div>  
+    <div id="footer">
+	</div>
+</body>
+</html>
+
+

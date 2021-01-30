@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/jqueryscripting.js"></script>
+    <link href="css/style.css" rel="stylesheet" />
+	<title>Ikinci El Satis</title>
+    <script>
+
+	var ProfileFiller=function(){
+	var level;
+	$.ajax({
+		type:"GET",
+		dataType:"json",
+		url:"api/getlevel.php",
+		success:function(data){
+			if(data.error==false){
+				level=data.level;
+				if(level>0){
+					var data = JSON.stringify({ "profile": level});
+					$.ajax({
+						type: "POST",
+						dataType: "json",
+						url: "api/getuserinfo.php",
+						data: data,
+						success: function (data) {
+							if(data.error==false){
+								$("#register_name").val(data.message.name);
+								$("#register_lastname").val(data.message.lastname);
+								$("#register_username").val(data.message.username);
+								$("#register_phone").val(data.message.phone);
+								$("#register_address").val(data.message.address);
+								$("#register_cities").val(data.message.city);
+								$("#register_countity").val(data.message.countity);
+								$("#register_postcode").val(data.message.postcode);
+								$("#register_securityquestion").val(data.message.question);
+								$("#register_secureanswer").val(data.message.answer);
+								$("#profile_img").attr("src",data.message.profile);
+							}
+							else{
+								alert(data.message);
+								window.location.href="login.html";
+							}
+						},
+						error: function(jqXHR, textStatus, errorThrown) {
+							alert(jqXHR.status);
+							alert(textStatus);
+							alert(errorThrown);
+						}
+					});
+				}
+				else{
+					alert("Bir hatayla karşılaşıldı. Lütfen sayfayı yenilemeyi deneyin.");
+				}
+			}
+			else {
+				alert(data.message);
+			}
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			alert(jqXHR.status);
+			alert(textStatus);
+			alert(errorThrown);
+		}
+	});
+};
+        $(document).ready(function () {
+			LoadNavBar();
+			ProfileFiller();
+            $("#profile_update").click(function () {
+				
+                return false; 
+            });
+        });
+
+    </script>
+</head>
+<body>
+	<div id="navbar">
+		<ul id="navbarlist"></ul>
+	</div>
+	<div id="indexpanelprofil">
+		<form id=""> 
+			<div>
+				<div class="resimsatırı"><img id="profile_img" alt="Profil Resmi Yüklenemedi"  height="300px" width="100%" /></div>
+				<div class="satır"><label class="labels" id="register_namelabel" for="register_name">İsim:</label><input type="text" class="registertext" id="register_name" placeholder="" /></div><br/>
+				<div class="satır"><label class="labels" id="register_lastnamelabel" for="register_lastname">Soyisim:</label><input type="text" class="registertext" id="register_lastname" placeholder="" /></div><br/>
+				<div class="satır"><label class="labels" id="register_usernamelabel" for="register_username">Kullanıcı Adı:</label><input type="text" class="registertext" id="register_username" placeholder="" disabled /></div><br/>
+				<div class="satır"><label class="labels" id="register_phonelabel" for="register_phone">Telefon:</label><input type="text" class="registertext" id="register_phone" placeholder="" /></div><br/>
+				<div class="satır"><label class="labels"  id="register_addresslabel" for="register_address">Adres:</label><input type="text" class="registertext" id="register_address" placeholder="" /></div><br/>
+				<div class="satır"><label  class="labels" id="register_citieslabel" for="register_cities">İl:</label>
+				
+<input type="text" class="registertext" id="register_cities" placeholder="" disabled />
+</div>
+				<br/>
+				<div class="satır"><label id="register_countitylabel"  class="labels" for="register_countity">İlçe:</label>
+				<input type="text" class="registertext" id="register_countity" placeholder="" disabled /></div>
+				<br/>
+				<div class="satır"><label id="register_postcodelabel"  class="labels" for="register_postcode">Posta Kodu:</label><input type="text" class="registertext" id="register_postcode" placeholder="" /></div><br/>
+				<div class="satır"><label id="register_securityquestionlabel" class="labels"  for="register_securityquestion">Güvenlik Sorusu Seçiniz:</label>
+					<input type="text" class="registertext" id="register_securityquestion" placeholder="" disabled />
+				</div>
+				<br/>
+				<div class="satır"><label id="register_secureanswerlabel"  class="labels" for="register_secureanswer">Cevap:</label><input type="text" class="registertext" id="register_secureanswer" placeholder="" /></div>
+			</div>
+			<input type="button" class="profile_show" id="profile_update" Value="Güncelle"/><br/> <input type="button" class="profile_show" id="change_pass" value="Şifre Değiştir"/>
+		</form>
+	</div>  
+    <div id="footer">
+	</div>
+</body>
+</html>
+
+
